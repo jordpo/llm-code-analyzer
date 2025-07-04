@@ -1,0 +1,8 @@
+{
+  "rules": ["security", "performance", "best-practices"],
+  "exclude": ["node_modules", "dist", "build", ".next", "coverage"],
+  "language": "auto",
+  "llmProvider": "openai",
+  "outputFormat": "text",
+  "maxConcurrency": 5
+}
