@@ -1,4 +1,4 @@
-import { AnalysisResult, AnalyzerConfig } from '@/types';
+import type { AnalysisResult, AnalyzerConfig } from '@/types';
 import { LLMProvider } from '@/providers';
 import { RuleEngine } from '@/rules';
 import { FileScanner } from '@/utils/scanner';

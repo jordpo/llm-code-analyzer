@@ -7,7 +7,7 @@
     "llm-code-analyzer": "./dist/cli.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "dev": "ts-node src/index.ts",
     "test": "jest",
     "lint": "eslint src --ext .ts",
