@@ -9,10 +9,7 @@ import { version } from '../package.json';
 
 const program = new Command();
 
-program
-  .name('llm-code-analyzer')
-  .description('AI-powered code analysis tool')
-  .version(version);
+program.name('llm-code-analyzer').description('AI-powered code analysis tool').version(version);
 
 program
   .command('analyze <path>')
@@ -22,23 +19,23 @@ program
   .option('-f, --format <format>', 'Output format (json, text, markdown)', 'text')
   .option('-o, --output <file>', 'Output to file instead of console')
   .option('--config <path>', 'Path to configuration file')
-  .action(async (path: string, options: any) => {
+  .action(async (path: string, options: AnalyzeCommandOptions) => {
     const spinner = ora('Loading configuration...').start();
-    
+
     try {
       const config = await loadConfig(options.config);
       const analyzer = new CodeAnalyzer(config);
-      
+
       spinner.text = 'Analyzing code...';
       const results = await analyzer.analyze(path, {
         recursive: options.recursive,
         rules: options.rules.split(','),
-        format: options.format
+        format: options.format,
       });
-      
+
       spinner.succeed('Analysis complete!');
-      
-      if (options.output) {
+
+      if (options.output !== undefined && options.output !== '') {
         await analyzer.saveResults(results, options.output);
         console.log(chalk.green(`Results saved to ${options.output}`));
       } else {
@@ -52,3 +49,11 @@ program
   });
 
 program.parse();
+
+interface AnalyzeCommandOptions {
+  recursive?: boolean;
+  rules: string;
+  format: string;
+  output?: string;
+  config?: string;
+}

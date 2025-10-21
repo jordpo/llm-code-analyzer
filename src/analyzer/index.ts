@@ -23,7 +23,7 @@ export class CodeAnalyzer {
 
     for (const file of files) {
       const result = await this.analyzeFile(file);
-      if (result) {
+      if (result !== null) {
         results.push(result);
       }
     }
@@ -35,17 +35,17 @@ export class CodeAnalyzer {
     try {
       const content = await this.scanner.readFile(filePath);
       const language = this.detectLanguage(filePath);
-      
+
       const analysis = await this.llmProvider.analyze(content, {
         language,
-        rules: this.ruleEngine.getRulesForLanguage(language)
+        rules: this.ruleEngine.getRulesForLanguage(language),
       });
 
       return {
         filePath,
         language,
         ...analysis,
-        timestamp: new Date()
+        timestamp: new Date(),
       };
     } catch (error) {
       console.error(`Failed to analyze ${filePath}:`, error);
@@ -65,10 +65,13 @@ export class CodeAnalyzer {
       go: 'go',
       rs: 'rust',
       cpp: 'cpp',
-      c: 'c'
+      c: 'c',
     };
-    
-    return languageMap[extension || ''] || 'unknown';
+
+    if (extension === undefined || extension === '') {
+      return 'unknown';
+    }
+    return languageMap[extension] ?? 'unknown';
   }
 
   printResults(results: AnalysisResult[], format: string): void {
