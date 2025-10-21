@@ -17,7 +17,10 @@ export class CodeAnalyzer {
     this.formatter = new ResultFormatter();
   }
 
-  async analyze(path: string, options?: AnalyzeOptions): Promise<AnalysisResult[]> {
+  async analyze(
+    path: string,
+    options?: AnalyzeOptions
+  ): Promise<AnalysisResult[]> {
     const files = await this.scanner.scan(path, options?.recursive);
     const results: AnalysisResult[] = [];
 
@@ -35,17 +38,17 @@ export class CodeAnalyzer {
     try {
       const content = await this.scanner.readFile(filePath);
       const language = this.detectLanguage(filePath);
-      
+
       const analysis = await this.llmProvider.analyze(content, {
         language,
-        rules: this.ruleEngine.getRulesForLanguage(language)
+        rules: this.ruleEngine.getRulesForLanguage(language),
       });
 
       return {
         filePath,
         language,
         ...analysis,
-        timestamp: new Date()
+        timestamp: new Date(),
       };
     } catch (error) {
       console.error(`Failed to analyze ${filePath}:`, error);
@@ -65,18 +68,22 @@ export class CodeAnalyzer {
       go: 'go',
       rs: 'rust',
       cpp: 'cpp',
-      c: 'c'
+      c: 'c',
     };
-    
+
     return languageMap[extension || ''] || 'unknown';
   }
 
   printResults(results: AnalysisResult[], format: string): void {
     const formatted = this.formatter.format(results, format);
+    // eslint-disable-next-line no-console
     console.log(formatted);
   }
 
-  async saveResults(results: AnalysisResult[], outputPath: string): Promise<void> {
+  async saveResults(
+    results: AnalysisResult[],
+    outputPath: string
+  ): Promise<void> {
     await this.formatter.save(results, outputPath);
   }
 }

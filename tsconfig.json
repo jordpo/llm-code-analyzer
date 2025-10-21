@@ -3,12 +3,17 @@
     /* Language and Environment */
     "target": "ES2023",
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "jsx": "preserve",
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
-    
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     /* Strict Type-Checking Options */
     "strict": true,
     "noImplicitAny": true,
@@ -24,7 +29,6 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noFallthroughCasesInSwitch": true,
-    
     /* Module Resolution Options */
     "baseUrl": ".",
     "paths": {
@@ -42,7 +46,6 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "checkJs": true,
-    
     /* Emit Options */
     "declaration": true,
     "declarationMap": true,
@@ -52,18 +55,15 @@
     "importHelpers": true,
     "downlevelIteration": true,
     "newLine": "lf",
-    
     /* Interop Constraints */
     "isolatedModules": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    
     /* Type Checking Performance */
     "skipLibCheck": true,
     "incremental": true,
     "tsBuildInfoFile": ".tsbuildinfo",
-    
     /* Advanced Options */
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -76,7 +76,8 @@
     "src/**/*.jsx",
     "src/**/*.json",
     "next-env.d.ts",
-    "**/*.d.ts"
+    "**/*.d.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
