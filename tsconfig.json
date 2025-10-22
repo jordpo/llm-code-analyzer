@@ -7,13 +7,9 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "noEmit": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+
     /* Strict Type-Checking Options */
     "strict": true,
     "noImplicitAny": true,
@@ -29,6 +25,7 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noFallthroughCasesInSwitch": true,
+
     /* Module Resolution Options */
     "baseUrl": ".",
     "paths": {
@@ -46,6 +43,7 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "checkJs": true,
+
     /* Emit Options */
     "declaration": true,
     "declarationMap": true,
@@ -55,15 +53,25 @@
     "importHelpers": true,
     "downlevelIteration": true,
     "newLine": "lf",
+
     /* Interop Constraints */
     "isolatedModules": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
+
+    /* Next.js Specific */
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+
     /* Type Checking Performance */
     "skipLibCheck": true,
     "incremental": true,
     "tsBuildInfoFile": ".tsbuildinfo",
+
     /* Advanced Options */
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -84,6 +92,7 @@
     "dist",
     ".next",
     "coverage",
+    "cli",
     "**/*.spec.ts",
     "**/*.test.ts",
     "**/*.spec.tsx",

@@ -39,6 +39,7 @@
     "dist",
     ".next",
     "coverage",
+    "cli",
     "*.config.js",
     "*.config.mjs"
   ]
