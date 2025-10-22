@@ -2,13 +2,17 @@
   "compilerOptions": {
     /* Language and Environment */
     "target": "ES2023",
-    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "jsx": "preserve",
     "module": "ESNext",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "noEmit": true,
-    
     /* Strict Type-Checking Options */
     "strict": true,
     "noImplicitAny": true,
@@ -24,25 +28,43 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noFallthroughCasesInSwitch": true,
-    
     /* Module Resolution Options */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/lib/*": ["./src/lib/*"],
-      "@/types/*": ["./src/types/*"],
-      "@/analyzers/*": ["./src/analyzers/*"],
-      "@/providers/*": ["./src/providers/*"],
-      "@/components/*": ["./src/components/*"],
-      "@/hooks/*": ["./src/hooks/*"],
-      "@/utils/*": ["./src/utils/*"],
-      "@/config/*": ["./src/config/*"],
-      "@/app/*": ["./src/app/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@/lib/*": [
+        "./src/lib/*"
+      ],
+      "@/types/*": [
+        "./src/types/*"
+      ],
+      "@/analyzers/*": [
+        "./src/analyzers/*"
+      ],
+      "@/providers/*": [
+        "./src/providers/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@/utils/*": [
+        "./src/utils/*"
+      ],
+      "@/config/*": [
+        "./src/config/*"
+      ],
+      "@/app/*": [
+        "./src/app/*"
+      ]
     },
     "resolveJsonModule": true,
     "allowJs": true,
     "checkJs": true,
-    
     /* Emit Options */
     "declaration": true,
     "declarationMap": true,
@@ -52,18 +74,21 @@
     "importHelpers": true,
     "downlevelIteration": true,
     "newLine": "lf",
-    
     /* Interop Constraints */
     "isolatedModules": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    
+    /* Next.js Specific */
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     /* Type Checking Performance */
     "skipLibCheck": true,
     "incremental": true,
     "tsBuildInfoFile": ".tsbuildinfo",
-    
     /* Advanced Options */
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -76,13 +101,15 @@
     "src/**/*.jsx",
     "src/**/*.json",
     "next-env.d.ts",
-    "**/*.d.ts"
+    "**/*.d.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "dist",
     ".next",
     "coverage",
+    "cli",
     "**/*.spec.ts",
     "**/*.test.ts",
     "**/*.spec.tsx",
