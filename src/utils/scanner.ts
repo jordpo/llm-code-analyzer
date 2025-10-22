@@ -1,18 +1,29 @@
-import { promises as fs } from 'fs';
+import { readFile } from 'fs/promises';
+import { resolve } from 'path';
 
 export class FileScanner {
-  private exclude: string[];
+  private excludePatterns: string[];
 
-  constructor(exclude: string[]) {
-    this.exclude = exclude;
+  constructor(excludePatterns: string[]) {
+    this.excludePatterns = excludePatterns;
   }
 
-  scan(_path: string, _recursive?: boolean): Promise<string[]> {
-    // TODO: Implement file scanning logic
-    return Promise.resolve([]);
+  async scan(path: string, _recursive?: boolean): Promise<string[]> {
+    // TODO: Implement file scanning with glob patterns
+    return Promise.resolve([path]);
   }
 
   async readFile(filePath: string): Promise<string> {
-    return fs.readFile(filePath, 'utf-8');
+    try {
+      const absolutePath = resolve(filePath);
+      return await readFile(absolutePath, 'utf-8');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      throw new Error(`Failed to read file ${filePath}: ${errorMessage}`);
+    }
+  }
+
+  isExcluded(path: string): boolean {
+    return this.excludePatterns.some((pattern) => path.includes(pattern));
   }
 }

@@ -13,6 +13,7 @@ coverage
 # Cache
 .cache
 .tsbuildinfo
+.tsbuildinfo.build
 
 # Logs
 *.log
@@ -33,10 +34,14 @@ pnpm-lock.yaml
 .env.development.local
 .env.test.local
 .env.production.local
+.env*.local
 
 # IDE
 .vscode
 .idea
+
+# OS files
+.DS_Store
 
 # Misc
 *.min.js

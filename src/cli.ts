@@ -9,6 +9,14 @@ import { version } from '../package.json';
 
 const program = new Command();
 
+interface AnalyzeCommandOptions {
+  recursive?: boolean;
+  rules: string;
+  format: string;
+  output?: string;
+  config?: string;
+}
+
 program.name('llm-code-analyzer').description('AI-powered code analysis tool').version(version);
 
 program
@@ -28,7 +36,7 @@ program
 
       spinner.text = 'Analyzing code...';
       const results = await analyzer.analyze(path, {
-        recursive: options.recursive,
+        ...(options.recursive === true && { recursive: options.recursive }),
         rules: options.rules.split(','),
         format: options.format,
       });
@@ -37,7 +45,7 @@ program
 
       if (options.output !== undefined && options.output !== '') {
         await analyzer.saveResults(results, options.output);
-        console.log(chalk.green(`Results saved to ${options.output}`));
+        console.warn(chalk.green(`Results saved to ${options.output}`));
       } else {
         analyzer.printResults(results, options.format);
       }
@@ -49,11 +57,3 @@ program
   });
 
 program.parse();
-
-interface AnalyzeCommandOptions {
-  recursive?: boolean;
-  rules: string;
-  format: string;
-  output?: string;
-  config?: string;
-}

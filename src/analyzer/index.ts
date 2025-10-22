@@ -76,6 +76,7 @@ export class CodeAnalyzer {
 
   printResults(results: AnalysisResult[], format: string): void {
     const formatted = this.formatter.format(results, format);
+    // eslint-disable-next-line no-console
     console.log(formatted);
   }
 

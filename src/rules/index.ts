@@ -6,7 +6,12 @@ export class RuleEngine {
   }
 
   getRulesForLanguage(_language: string): string[] {
-    // TODO: Implement language-specific rule filtering
+    // TODO: Implement rule filtering based on language
     return this.rules;
+  }
+
+  validateRules(): boolean {
+    // TODO: Implement rule validation
+    return true;
   }
 }
