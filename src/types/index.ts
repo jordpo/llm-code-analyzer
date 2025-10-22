@@ -51,3 +51,50 @@ export interface LLMProviderConfig {
   temperature?: number;
   maxTokens?: number;
 }
+
+// File system and AST types
+export interface FileMetadata {
+  path: string;
+  relativePath: string;
+  extension: string;
+  size: number;
+  language: string;
+  lastModified: Date;
+  parseError?: ParseError;
+}
+
+export interface ParseError {
+  message: string;
+  line?: number;
+  column?: number;
+  stack?: string;
+}
+
+export interface ASTParseResult {
+  success: boolean;
+  ast?: any; // Babel AST node
+  metadata: FileMetadata;
+  error?: ParseError;
+  parseTime: number;
+}
+
+export interface TraversalOptions {
+  rootPath: string;
+  extensions?: string[];
+  exclude?: string[];
+  maxDepth?: number;
+  followSymlinks?: boolean;
+  respectGitignore?: boolean;
+  maxFileSize?: number; // in bytes
+}
+
+export interface TraversalProgress {
+  totalFiles: number;
+  processedFiles: number;
+  currentFile: string;
+  errors: number;
+  startTime: Date;
+  estimatedTimeRemaining?: number;
+}
+
+export type ProgressCallback = (progress: TraversalProgress) => void;
