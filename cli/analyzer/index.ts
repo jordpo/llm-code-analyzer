@@ -1,17 +1,17 @@
 import type { AnalysisResult, AnalyzerConfig } from '@/types';
-import { LLMProvider } from '@/providers';
+import { createProvider, type ILLMProvider } from '@/providers';
 import { RuleEngine } from '@/rules';
 import { FileScanner } from '@/utils/scanner';
 import { ResultFormatter } from '@/utils/formatter';
 
 export class CodeAnalyzer {
-  private llmProvider: LLMProvider;
+  private llmProvider: ILLMProvider;
   private ruleEngine: RuleEngine;
   private scanner: FileScanner;
   private formatter: ResultFormatter;
 
   constructor(config: AnalyzerConfig) {
-    this.llmProvider = new LLMProvider(config);
+    this.llmProvider = createProvider(config);
     this.ruleEngine = new RuleEngine(config.rules);
     this.scanner = new FileScanner(config.exclude);
     this.formatter = new ResultFormatter();
