@@ -18,8 +18,7 @@ export class FileScanner {
       const absolutePath = resolve(filePath);
       return await readFile(absolutePath, 'utf-8');
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : 'Unknown error';
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       throw new Error(`Failed to read file ${filePath}: ${errorMessage}`);
     }
   }

@@ -17,21 +17,14 @@ interface AnalyzeCommandOptions {
   config?: string;
 }
 
-program
-  .name('llm-code-analyzer')
-  .description('AI-powered code analysis tool')
-  .version(version);
+program.name('llm-code-analyzer').description('AI-powered code analysis tool').version(version);
 
 program
   .command('analyze <path>')
   .description('Analyze code files or directories')
   .option('-r, --recursive', 'Analyze directories recursively')
   .option('--rules <rules>', 'Comma-separated list of rules to apply', 'all')
-  .option(
-    '-f, --format <format>',
-    'Output format (json, text, markdown)',
-    'text'
-  )
+  .option('-f, --format <format>', 'Output format (json, text, markdown)', 'text')
   .option('-o, --output <file>', 'Output to file instead of console')
   .option('--config <path>', 'Path to configuration file')
   .action(async (path: string, options: AnalyzeCommandOptions) => {
@@ -43,14 +36,14 @@ program
 
       spinner.text = 'Analyzing code...';
       const results = await analyzer.analyze(path, {
-        ...(options.recursive && { recursive: options.recursive }),
+        ...(options.recursive === true && { recursive: options.recursive }),
         rules: options.rules.split(','),
         format: options.format,
       });
 
       spinner.succeed('Analysis complete!');
 
-      if (options.output) {
+      if (options.output !== undefined && options.output !== '') {
         await analyzer.saveResults(results, options.output);
         console.warn(chalk.green(`Results saved to ${options.output}`));
       } else {
@@ -58,9 +51,7 @@ program
       }
     } catch (error) {
       spinner.fail('Analysis failed');
-      console.error(
-        chalk.red(error instanceof Error ? error.message : 'Unknown error')
-      );
+      console.error(chalk.red(error instanceof Error ? error.message : 'Unknown error'));
       process.exit(1);
     }
   });

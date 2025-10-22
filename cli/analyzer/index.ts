@@ -17,16 +17,13 @@ export class CodeAnalyzer {
     this.formatter = new ResultFormatter();
   }
 
-  async analyze(
-    path: string,
-    options?: AnalyzeOptions
-  ): Promise<AnalysisResult[]> {
+  async analyze(path: string, options?: AnalyzeOptions): Promise<AnalysisResult[]> {
     const files = await this.scanner.scan(path, options?.recursive);
     const results: AnalysisResult[] = [];
 
     for (const file of files) {
       const result = await this.analyzeFile(file);
-      if (result) {
+      if (result !== null) {
         results.push(result);
       }
     }
@@ -71,7 +68,10 @@ export class CodeAnalyzer {
       c: 'c',
     };
 
-    return languageMap[extension || ''] || 'unknown';
+    if (extension === undefined || extension === '') {
+      return 'unknown';
+    }
+    return languageMap[extension] ?? 'unknown';
   }
 
   printResults(results: AnalysisResult[], format: string): void {
@@ -80,10 +80,7 @@ export class CodeAnalyzer {
     console.log(formatted);
   }
 
-  async saveResults(
-    results: AnalysisResult[],
-    outputPath: string
-  ): Promise<void> {
+  async saveResults(results: AnalysisResult[], outputPath: string): Promise<void> {
     await this.formatter.save(results, outputPath);
   }
 }
