@@ -12,15 +12,15 @@
     "start": "next start",
     "build:cli": "tsc -p tsconfig.build.json",
     "dev:cli": "ts-node src/index.ts",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
     "lint": "next lint && eslint src --ext .ts,.tsx",
     "lint:fix": "next lint --fix && eslint src --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "type-check": "tsc --noEmit",
-    "prepublishOnly": "npm run build:cli",
-    "prepare": "husky"
+    "prepare": "husky",
+    "prepublishOnly": "npm run build:cli"
   },
   "keywords": [
     "code-analysis",
@@ -44,6 +44,8 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "@types/jest": "^29.5.0",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
